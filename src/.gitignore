@@ -2,4 +2,5 @@ vendor/*
 .DS_Store
 ../.DS_Store
 ../.idea/
+/templates/typescripts/node_modules/*
 
