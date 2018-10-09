@@ -13,21 +13,41 @@ import Result from "./Result";
 //     }, 1000);
 // }
 
+<<<<<<< HEAD
 
 interface Props {
     handleKeyUpName: any;
 }
+=======
+const handleKeyUp = (e: any, type: string) => {
+    const value: string = e.currentTarget.value;
+    delay(() => {        
+        const request = ApiRequest.send('get', 'logs', {value, type});
+        request.then((r) => {
+            console.log('response: ', r);
+        });
+    }, 1000);
+};
+>>>>>>> 23cae1e1311b910c80aef84ae15fd5710c081e9d
 
 const Header = (props: Props) => {
     return (
+<<<<<<< HEAD
         <div>
             <input type='text' name='directory' placeholder='App Directory' />
             <input type='text' name='name' placeholder='Name' onKeyUp={props.handleKeyUpName} />
             <input type='text' name='maxHours' placeholder='Max Hours' />
             <input type='text' name='Date' placeholder='Date ' />
+=======
+        <div> 
+            <input type='text' name='directory' placeholder='App Directory' onKeyUp={(e) => handleKeyUp(e, 'directory')} />
+            <input type='text' name='name' placeholder='Name' onKeyUp={(e) => handleKeyUp(e, 'name')} />
+            <input type='text' name='maxHours' placeholder='Max Hours' onKeyUp={(e) => handleKeyUp(e, 'maxHours')}/>
+            <input type='text' name='date' placeholder='Date ' onKeyUp={(e) => handleKeyUp(e, 'date')}/>
+>>>>>>> 23cae1e1311b910c80aef84ae15fd5710c081e9d
         </div>
     );
-}
+};
 
 const App = () => {
     return (
@@ -35,7 +55,7 @@ const App = () => {
             <App2/>
         </div>
     );
-}
+};
 
 interface State {
     collectionItems: [];
