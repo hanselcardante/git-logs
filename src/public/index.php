@@ -10,23 +10,32 @@ $container = $app->getContainer();
 $container['view'] = new \Slim\Views\PhpRenderer('../templates/');
 
 
-$app->get('/hello/{name}', function (Request $request, Response $response, array $args) {
-    $name = $args['name'];
-    $response->getBody()->write("Hello, $name");
+$app->get('/easy-logs', function (Request $request, Response $response, array $args) {    
+    // $response->getBody()->write("Hello, $name");
     $logs = new Logs;
-    $logs->test();
+    $logs->getResult();
 
     $data = ['the', 'quick', 'brown', 'fox'];
+
     $response = $this->view->render($response, 'app.phtml', ['logs' => $data]);
 
     return $response;
 });
 
-$app->get('/yo/{hoy}', function (Request $request, Response $response, array $args) {
-    $name = $args['hoy'];
-    $response->getBody()->write("Hello, $name");
+$app->get('/logs', function (Request $request, Response $response, array $args) {    
+        $data = $request->getQueryParams();
 
-    return $response;
+        print_r($data); exit;
+        $test = ['hello', 'hi'];
+        return json_encode($test);
+    // $logs = new Logs;
+    // $logs->getResult();
+
+    // $data = ['the', 'quick', 'brown', 'fox'];
+
+    // $response = $this->view->render($response, 'app.phtml', ['logs' => $data]);
+
+    // return $response;
 });
 
 $app->run();
