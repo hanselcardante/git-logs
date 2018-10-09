@@ -18,7 +18,7 @@ export class ApiRequest {
 
 
 export const delay = (() => {
-    let timer = 0;
+    let timer:any = 0;
     return (callback: any, ms: number) => {
         clearTimeout (timer);
         timer = setTimeout(callback, ms);
