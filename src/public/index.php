@@ -10,7 +10,7 @@ $container = $app->getContainer();
 $container['view'] = new \Slim\Views\PhpRenderer('../templates/');
 
 
-$app->get('/easy-logs', function (Request $request, Response $response, array $args) {    
+$app->get('/easy-logs', function (Request $request, Response $response, array $args) {
     // $response->getBody()->write("Hello, $name");
     $logs = new Logs;
     $logs->getResult();
@@ -22,11 +22,24 @@ $app->get('/easy-logs', function (Request $request, Response $response, array $a
     return $response;
 });
 
-$app->get('/logs', function (Request $request, Response $response, array $args) {    
+$app->get('/logs', function (Request $request, Response $response, array $args) {
         $data = $request->getQueryParams();
 
-        print_r($data); exit;
-        $test = ['hello', 'hi'];
+        //print_r($data); exit;
+        $test = [
+          [
+           “ticketNum” => 'spk-100',
+           “commitMgs” => 'hello world',
+           “author” => 'john',
+           “hours” => '3h 20m',
+         ],
+         [
+           “ticketNum” => 'spk-200',
+           “commitMgs” => 'meessage',
+           “author” => 'aldrin',
+           “hours” => '4h 40m',
+         ]
+        ];
         return json_encode($test);
     // $logs = new Logs;
     // $logs->getResult();
