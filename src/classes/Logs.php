@@ -2,6 +2,6 @@
 
 Class Logs {
 	public function test() {
-		echo "hi";
+		echo "hi afsadlfjdsalkfjls";
 	}
 }
