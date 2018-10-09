@@ -1,7 +1,7 @@
 <?php
 
 Class Logs {
-	public function test() {
+	public function getResult() {
 		echo "hi afsadlfjdsalkfjls";
 	}
 }

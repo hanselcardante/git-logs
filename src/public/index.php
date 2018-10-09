@@ -48,6 +48,7 @@ function getTotalTicketHour($ticketCommits) {
     return $total;
 }
 
+
 $app->get('/easy-logs', function (Request $request, Response $response, array $args) {    
 
     $groupCommits = new GroupCommits();
@@ -84,13 +85,10 @@ exit;
     return $response;
 });
 
-$app->get('/logs', function (Request $request, Response $response, array $args) {    
+$app->get('/logs', function (Request $request, Response $response, array $args) {
         $data = $request->getQueryParams();
-
         print_r($data); exit;
         $test = ['hello', 'hi'];
-
-
         return json_encode($test);
     // $logs = new Logs;
     // $logs->getResult();

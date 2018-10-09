@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:8080';
+const baseUrl = 'http://localhost:4005';
 
 export class ApiRequest {
 
@@ -8,7 +8,7 @@ export class ApiRequest {
             url,
             type,
             data,
-            contentType: 'application/json; charset=utf-8',            
+            contentType: 'application/json; charset=utf-8',
             error: function(jqXHR: any) {
                console.log('Errors: ', jqXHR);
             },
@@ -18,7 +18,9 @@ export class ApiRequest {
 
 
 export const delay = (() => {
-    let timer:any = 0;
+
+    let timer: any = 0;
+
     return (callback: any, ms: number) => {
         clearTimeout (timer);
         timer = setTimeout(callback, ms);
