@@ -49,12 +49,11 @@ function getTotalTicketHour($ticketCommits) {
 }
 
 
-$app->get('/easy-logs', function (Request $request, Response $response, array $args) {    
+$app->get('/easy-logs', function (Request $request, Response $response, array $args) {
 
     $groupCommits = new GroupCommits();
-    $var = $groupCommits->groupCommit();
-echo "kfsdf";
-exit;
+    $var = $groupCommits->groupCommit("","2018-10-04","/Users/xrexonx/Projects/dbocl-rails");
+
     $grouped = array_map(function($each) {
         return new TicketCommit(
             $each['ticketNum'],
@@ -75,11 +74,8 @@ exit;
         $each->setPercentage($percent[$each->getTicketNum()]);
     };
 
-    //    var_dump($results);
-    var_dump($percent);
     var_dump(array_map(function($each) {return $each->getDataAsArray();}, $grouped));
-    print_r('test');
-    exit;
+
     $response = $this->view->render($response, 'app.phtml', ['logs' => 'dafsf']);
 
     return $response;

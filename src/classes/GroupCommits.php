@@ -1,8 +1,8 @@
 <?php
-
 class GroupCommits
 {
     public function ticketCommit($line){
+        // assumptions for project key is very limited
         if (preg_match("/[A-Za-z]+-[0-9]+/", $line, $matches))
             return true;
         else
@@ -19,32 +19,21 @@ class GroupCommits
         }
         return $output;
     }
-    public function groupCommit ()
+    public function groupCommit ($author,$date,$dir)
     {
-        echo "Directory: ";
-        // $inputDirectory = fopen("php://stdin","r");
-
-        // $directory = fgets($inputDirectory);
-        $dir = "/Users/hanselcardante/Sites/Chromedia/git-logger";
-        echo "Author: "; 
-        $inputAuthor = fopen("php://stdin","r");
-        $author = fgets($inputAuthor);
-        echo "Date: "; 
-        $inputDate = fopen("php://stdin", "r");
-        $date = "2018-10-09";
-        exit;
+        // Why run groupings and groupStats separately?
         $history = $this->groupings($date, $author, $dir);
         // print_r($history);
         $stats = $this->groupStats($date, $author, $dir);
         // print_r($stats);
-        $view = $this->combineArr($history,$stats);
-        return $view;
+        return $this->combineArr($history,$stats);
     }
     public function groupings($date, $author, $dir){
         $output = $this->getResults($date, $author, $dir);
         $history = array();
         $others = array();
         $ticketCommits =array();
+        // uninitialized $commit var
         foreach($output as $line){
             if(strpos($line, 'commit')===0){
                 if(!empty($commit)){
@@ -53,6 +42,7 @@ class GroupCommits
                 }
                 $commit['hash']   = substr($line, strlen('commit'));
             }
+            // author can be assumed as as $author
             else if(strpos($line, 'Author')===0){
                 $commit['author'] = substr($line, strlen('Author:'));
             }
@@ -65,12 +55,12 @@ class GroupCommits
                 if($arr[0]!= '' && $this->ticketCommit($arr[0])){
                     array_push($ticketCommits, $line);
                     $commit['type'] = str_replace(":","",$arr[0]);
-                                    unset($arr[0]);
-                                    $commit['message'] = implode(" ", $arr);
+                    unset($arr[0]);
+                    $commit['message'] = implode(" ", $arr);
                 }
                 else if ($arr[0]!= '' && !$this->ticketCommit($arr[0])){
                     array_push($others, $line);
-                                    $commit['message'] = $line;
+                    $commit['message'] = $line;
                     $commit['type'] = "others";
                 }
             }
@@ -138,14 +128,8 @@ class GroupCommits
         foreach ($arr2 as $value)
         {
             if($value["hash"] === $hash) {
-                if($type == "changed") {
-                    return $value["changed"];
-                }
-                if($type == "insertions") {
-                    return $value["insertions"];
-                }
-                if($type == "deletions") {
-                    return $value["deletions"];
+                if(isset($value[$type])) {
+                    return $value[$type];
                 }
             }
         }

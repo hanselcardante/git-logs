@@ -1,6 +1,5 @@
 <?php
 
-require_once 'PercentConverter.php';
 
 class TicketCommit
 {
