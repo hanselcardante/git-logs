@@ -6,35 +6,19 @@ namespace src\Model;
  */
 class Log
 {
-	private $commit;
-	private $author;
-	private $date;
-	private $message;
+	protected $hash;
+	protected $author;
+	protected $date;
+	protected $message;
+	protected $insertions;
+    protected $deletions;
+    protected $changes;
 
-	public __construct($log)
+    // GETTERS
+
+	public function getHash()
 	{
-		if(!is_array($log)) {
-			throw exception('Invalid data type. Log data must be an array!');
-		}
-
-		foreach ($log as $key => $value) {
-			$this->{$key} = $value;
-		}	
-	}
-
-	public function setCommit($commit)
-	{
-		$this->commit = $commit;
-	}
-
-	public function getCommit()
-	{
-		return $this->commit;
-	}
-
-	public function setAuthor($author)
-	{
-		$this->author = $author;
+		return $this->hash;
 	}
 
 	public function getAuthor()
@@ -42,14 +26,46 @@ class Log
 		return $this->author;
 	}
 
-	public function setDate($date)
-	{
-		$this->date = $date;
-	}
-
 	public function getDate()
 	{
 		return $this->date;
+	}
+
+	public function getMessage()
+	{
+		return $this->message;
+	}
+
+	public function getChanges()
+	{
+		return $this->changes;
+	}
+
+	public function getDeletions()
+	{
+		return $this->deletions;
+	}
+
+	public function getInsertions()
+	{
+		return $this->insertions;
+	}
+
+	// SETTERS
+
+	public function setHash($hash)
+	{
+		$this->hash = $hash;
+	}
+
+	public function setAuthor($author)
+	{
+		$this->author = $author;
+	}
+
+	public function setDate($date)
+	{
+		$this->date = $date;
 	}
 
 	public function setMessage($message)
@@ -57,8 +73,18 @@ class Log
 		$this->message = $message;
 	}
 
-	public function getMessage()
+	public function setChanges($changes)
 	{
-		return $this->message;
+		$this->changes = $changes;
+	}
+
+	public function setDeletions($deletions)
+	{
+		$this->deletions = $deletions;
+	}
+
+	public function setInsertions($insertions)
+	{
+		$this->insertions = $insertions;
 	}
 }
