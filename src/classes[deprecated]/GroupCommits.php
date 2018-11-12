@@ -17,15 +17,23 @@ class GroupCommits
         }else{
             exec("git log  --no-merges --after=\"$date 00:00\" --before=\"$date 23:59\" --author=$author",$output);
         }
+        // echo '<pre>';
+        // print_r($output);
+        // exit;
         return $output;
     }
     public function groupCommit ($author,$date,$dir)
     {
         // Why run groupings and groupStats separately?
         $history = $this->groupings($date, $author, $dir);
+        echo '<pre>';
         // print_r($history);
+        // echo 'waheheh';
+        // exit;
         $stats = $this->groupStats($date, $author, $dir);
         // print_r($stats);
+        // print_r($this->combineArr($history,$stats));
+        // exit;
         return $this->combineArr($history,$stats);
     }
     public function groupings($date, $author, $dir){
@@ -35,7 +43,7 @@ class GroupCommits
         $ticketCommits =array();
         // uninitialized $commit var
         foreach($output as $line){
-            if(strpos($line, 'commit')===0){
+            if(stripos($line, 'commit')===0){
                 if(!empty($commit)){
                     array_push($history, $commit);
                     unset($commit);
@@ -43,10 +51,10 @@ class GroupCommits
                 $commit['hash']   = substr($line, strlen('commit'));
             }
             // author can be assumed as as $author
-            else if(strpos($line, 'Author')===0){
+            else if(stripos($line, 'author')===0){
                 $commit['author'] = substr($line, strlen('Author:'));
             }
-            else if(strpos($line, 'Date')===0){
+            else if(stripos($line, 'date')===0){
                 $oldDate = substr($line, strlen('Date:   '));
                 $commit['newDate']   = strtotime($oldDate);
             }
@@ -65,6 +73,7 @@ class GroupCommits
                 }
             }
         }
+
         return $history;
     }
     public function groupStats($date, $author, $dir){

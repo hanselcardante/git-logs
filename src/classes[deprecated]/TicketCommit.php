@@ -64,7 +64,7 @@ class TicketCommit
 
     private function convertPercentToTime($percentage, $maxHours) {
         if($percentage > 0 && $percentage <= 1) {
-            $hours = $maxHours * $percentage;
+            $hours = bcmul($maxHours, $percentage);
             $hoursRem = fmod($hours, 1);
             $minutes = $hoursRem * 60;
             return  "".(int)$hours."h ".round($minutes, 0)."m";

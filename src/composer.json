@@ -5,7 +5,10 @@
     },
     "autoload": {
         "psr-4": {
-            "": "classes/"
+        	"src\\Classes\\": "Classes/",
+        	"src\\Interfaces\\": "Interfaces/",
+            "src\\Services\\": "Services/",
+            "src\\Model\\": "Model/"
         }
     }
 }
