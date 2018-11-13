@@ -7,14 +7,16 @@ class Project
 {
 	private $name;
 	private $directory;
+	private $maxHours;
 	private $author;
 	private $date;
 
-	public function __construct($date, $author, $dir)
+	public function __construct($date, $author, $dir, $maxHours)
 	{
 		$this->directory = $dir;
 		$this->author = $author;
 		$this->date = $date;
+		$this->maxHours = $maxHours;
 	}
 
 	public function getDirectory()
@@ -30,5 +32,10 @@ class Project
 	public function getAuthor()
 	{
 		return $this->author;
+	}
+
+	public function getMaxHours()
+	{
+		return $this->maxHours;
 	}
 }

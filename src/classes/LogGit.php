@@ -29,15 +29,14 @@ class LogGit implements LogInterface, DependencyInjectionInterface
 
 	public function getResults()
 	{
-		$rawLogs = $this->getRawLogs();
-		$logs = $this->getLogs($rawLogs);
-		$groupedLogs = $this->groupLogs($logs);
-		//TODO: Refactor to a more readable codes
-		$percent = Helpers::percentegatorize($groupedLogs);
-
-		if(!count($groupedLogs)) {
+		$rawLogs = @$this->getRawLogs();
+		if(!count($rawLogs)) {
 			return [];
 		}
+
+		$logs = $this->getLogs($rawLogs);
+		$groupedLogs = $this->groupLogs($logs);
+		$percent = Helpers::percentegatorize($groupedLogs);
 
 	    foreach ($groupedLogs as $commit) {
 	    	//Commit $commit 
@@ -48,6 +47,7 @@ class LogGit implements LogInterface, DependencyInjectionInterface
 	   	return array_map(function($each) {
 	   		return $each->getDataAsArray(); 
 	   	}, $groupedLogs);
+
 	}
 
 	public function getRawLogs()
@@ -86,7 +86,7 @@ class LogGit implements LogInterface, DependencyInjectionInterface
 			}
 					
 			if(empty($commits[$commit->getTicketNumber()])) {
-                $commit->setMaxHours(LOG_MAX_HOURS);
+                $commit->setMaxHours($this->project->getMaxHours());
 				$commit->setAuthor($log->getAuthor());
 				$commit->setDate($log->getDate());					
 				$commit->setHash($log->getHash());
