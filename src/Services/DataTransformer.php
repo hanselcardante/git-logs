@@ -30,13 +30,9 @@ class DataTransformer implements DataTransformerInterface
         // TODO: Need more refactor
         // too much if else
         $log = new Log;
-        foreach($this->data as $line) {
+        foreach($this->data as $key => $line) {
             if(stripos($line, 'commit') === 0) {
                 $hash = substr($line, strlen('commit'));
-                if(!empty($log->getHash()) && $log->getHash() !== $hash) {
-                    array_push($this->result, $log);
-                    $log = new Log;
-                }
                 $log->setHash($hash);
             } else if(stripos($line, 'author') === 0) {
                 $author = substr($line, strlen('Author:'));
@@ -57,12 +53,16 @@ class DataTransformer implements DataTransformerInterface
                         $deletions = $arr[$key - 1];
                         $log->setDeletions($deletions);
                     }
-                }            
+                }
+
+                // this is the last line to complete a Log object
+                array_push($this->result, $log);
+                $log = new Log;
+
             } else if(!preg_match('/(\+|\-)$/i', $line)) {
                 $message = trim($line);    
-                if(!empty($message)) {
+                if(!empty($message))
                     $log->setMessage($message);
-                }
             }
         }
     }
