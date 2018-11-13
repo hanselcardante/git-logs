@@ -22,15 +22,14 @@ $app->get('/easy-logs', function (Request $request, Response $response, array $a
 $app->get('/logs', function (Request $request, Response $response, array $args) {
     $data = $request->getQueryParams();
     // sample data 
-    $data['dir'] = '/Users/hanselcardante/Sites/Chromedia/spokehealth';
-    $data['date'] = '2018-10-04';
-    $data['author'] = '';
+    // $data['directory'] = '/Users/hanselcardante/Sites/Chromedia/spokehealth';
+    // $data['date'] = '2018-10-04';
+    // $data['author'] = '';
+    // $data['maxHours'] = '8';
     //  end sample data
-
-    $project = new Project($data['date'], $data['author'], $data['dir']);
+    $project = new Project($data['date'], $data['author'], $data['directory'], $data['maxHours']);
     $result = $this->logManager->process($project);
-    echo '<pre>';
-    print_r($result);
+    echo json_encode($result);
 });
 
 $app->run();
