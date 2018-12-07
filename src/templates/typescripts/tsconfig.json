@@ -7,6 +7,11 @@
     "target": "es5",
     "jsx": "react",
     "allowJs": true,
+<<<<<<< HEAD
     "lib": ["es5", "es6", "dom"]
+=======
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": true
+>>>>>>> dummy
   }
 }
