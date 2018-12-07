@@ -54,7 +54,7 @@ class App extends React.Component <any, State>{
                 const items = JSON.parse(response);
                 this.setState({collectionItems: items});
             });
-        }, 1000);
+        }, 100);
     }
 
     render() {
